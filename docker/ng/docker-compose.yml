@@ -6,7 +6,7 @@ services:
     image: abp/host
     environment:
       ASPNETCORE_ENVIRONMENT: "Staging"
-      ConnectionStrings__Default: "Server=10.0.75.1; Database=632ShopDb; User=632ShopUser; Password=YourStrongPassword;TrustServerCertificate=True;"
+      ConnectionStrings__Default: "Server=10.0.75.1; Database=SixThreeTwo_shopDb; User=SixThreeTwo_shopUser; Password=YourStrongPassword;TrustServerCertificate=True;"
       App__ServerRootAddress: "http://localhost:44311/"
       App__ClientRootAddress: "http://localhost:4200/"
       App__CorsOrigins: "http://localhost:4200"

@@ -251,6 +251,6 @@ paket-files/
 .idea/
 *.sln.iml
 
-src/632Shop.Web.Mvc/secrets.json
-src/632Shop.Web.Host/secrets.json
-src/632Shop.Migrator/secrets.json
+src/SixThreeTwo_shop.Web.Mvc/secrets.json
+src/SixThreeTwo_shop.Web.Host/secrets.json
+src/SixThreeTwo_shop.Migrator/secrets.json
