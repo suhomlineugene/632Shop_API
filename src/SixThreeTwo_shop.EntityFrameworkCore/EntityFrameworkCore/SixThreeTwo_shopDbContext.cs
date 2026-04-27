@@ -5,6 +5,7 @@ using SixThreeTwo_shop.MultiTenancy;
 using SixThreeTwo_shop.Products;
 using SixThreeTwo_shop.Users;
 using Microsoft.EntityFrameworkCore;
+using SixThreeTwo_shop.Cars;
 using SixThreeTwo_shop.Orders;
 using SixThreeTwo_shop.Reviews;
 using SixThreeTwo_shop.Wishlists;
@@ -41,4 +42,12 @@ public class SixThreeTwo_shopDbContext(DbContextOptions<SixThreeTwo_shopDbContex
   public DbSet<Review> Reviews { get; set; }
 
   public DbSet<Wishlist> Wishlists { get; set; }
+  
+  public DbSet<CarBrand> CarBrands { get; set; }
+  
+  public DbSet<CarModel> CarModels { get; set; }
+  
+  public DbSet<VehicleVariant> VehicleVariants { get; set; }
+  
+  public DbSet<ProductCompability> ProductCompabilities { get; set; }
 }

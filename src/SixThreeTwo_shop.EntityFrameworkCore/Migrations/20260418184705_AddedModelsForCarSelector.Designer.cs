@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SixThreeTwo_shop.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using SixThreeTwo_shop.EntityFrameworkCore;
 namespace SixThreeTwo_shop.Migrations
 {
     [DbContext(typeof(SixThreeTwo_shopDbContext))]
-    partial class SixThreeTwo_shopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260418184705_AddedModelsForCarSelector")]
+    partial class AddedModelsForCarSelector
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1600,12 +1603,6 @@ namespace SixThreeTwo_shop.Migrations
                     b.Property<string>("Slug")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<short>("YearFrom")
-                        .HasColumnType("smallint");
-
-                    b.Property<short>("YearTo")
-                        .HasColumnType("smallint");
-
                     b.HasKey("Id");
 
                     b.ToTable("CarBrands");
@@ -1630,12 +1627,6 @@ namespace SixThreeTwo_shop.Migrations
 
                     b.Property<string>("Slug")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<short>("YearFrom")
-                        .HasColumnType("smallint");
-
-                    b.Property<short>("YearTo")
-                        .HasColumnType("smallint");
 
                     b.HasKey("Id");
 
@@ -1670,10 +1661,7 @@ namespace SixThreeTwo_shop.Migrations
                     b.Property<int>("ModelId")
                         .HasColumnType("int");
 
-                    b.Property<short>("YearFrom")
-                        .HasColumnType("smallint");
-
-                    b.Property<short>("YearTo")
+                    b.Property<short>("Year")
                         .HasColumnType("smallint");
 
                     b.HasKey("Id");
