@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SixThreeTwo_shop.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using SixThreeTwo_shop.EntityFrameworkCore;
 namespace SixThreeTwo_shop.Migrations
 {
     [DbContext(typeof(SixThreeTwo_shopDbContext))]
-    partial class SixThreeTwo_shopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260518174347_AddedRefactoredEntities")]
+    partial class AddedRefactoredEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1959,8 +1962,7 @@ namespace SixThreeTwo_shop.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Additives");
                 });
@@ -1981,8 +1983,7 @@ namespace SixThreeTwo_shop.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Coolants");
                 });
@@ -2025,8 +2026,7 @@ namespace SixThreeTwo_shop.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("ProductId");
 
                     b.ToTable("MotorOils");
                 });
@@ -2197,8 +2197,7 @@ namespace SixThreeTwo_shop.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("ProductId");
 
                     b.ToTable("TransmissionFluids");
                 });
@@ -2745,8 +2744,8 @@ namespace SixThreeTwo_shop.Migrations
             modelBuilder.Entity("SixThreeTwo_shop.Products.Additive", b =>
                 {
                     b.HasOne("SixThreeTwo_shop.Products.Product", "Product")
-                        .WithOne("Additive")
-                        .HasForeignKey("SixThreeTwo_shop.Products.Additive", "ProductId")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2756,8 +2755,8 @@ namespace SixThreeTwo_shop.Migrations
             modelBuilder.Entity("SixThreeTwo_shop.Products.Coolant", b =>
                 {
                     b.HasOne("SixThreeTwo_shop.Products.Product", "Product")
-                        .WithOne("Coolant")
-                        .HasForeignKey("SixThreeTwo_shop.Products.Coolant", "ProductId")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2767,8 +2766,8 @@ namespace SixThreeTwo_shop.Migrations
             modelBuilder.Entity("SixThreeTwo_shop.Products.MotorOil", b =>
                 {
                     b.HasOne("SixThreeTwo_shop.Products.Product", "Product")
-                        .WithOne("MotorOil")
-                        .HasForeignKey("SixThreeTwo_shop.Products.MotorOil", "ProductId")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2827,8 +2826,8 @@ namespace SixThreeTwo_shop.Migrations
             modelBuilder.Entity("SixThreeTwo_shop.Products.TransmissionFluid", b =>
                 {
                     b.HasOne("SixThreeTwo_shop.Products.Product", "Product")
-                        .WithOne("TransmissionFluid")
-                        .HasForeignKey("SixThreeTwo_shop.Products.TransmissionFluid", "ProductId")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -3029,17 +3028,6 @@ namespace SixThreeTwo_shop.Migrations
                     b.Navigation("Settings");
 
                     b.Navigation("Tokens");
-                });
-
-            modelBuilder.Entity("SixThreeTwo_shop.Products.Product", b =>
-                {
-                    b.Navigation("Additive");
-
-                    b.Navigation("Coolant");
-
-                    b.Navigation("MotorOil");
-
-                    b.Navigation("TransmissionFluid");
                 });
 #pragma warning restore 612, 618
         }

@@ -13,5 +13,10 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\SixThreeTwo_shop.Core\SixThreeTwo_shop.Core.csproj" />
+    <ProjectReference Include="..\SixThreeTwo_shop.Shared\SixThreeTwo_shop.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="33.1.0" />
+    <PackageReference Include="ExcelDataReader" Version="3.8.0" />
   </ItemGroup>
 </Project>

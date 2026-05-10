@@ -1,14 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities;
+using JetBrains.Annotations;
 
 namespace SixThreeTwo_shop.Products;
 
-[Table("ProductImages")]
-public class ProductImage: Entity
+[Table("TransmissionFluids")]
+public class TransmissionFluid: Entity
 {
-  public string Url { get; set; }
+  public TransmissionType TransmissionType { get; set; }
   
-  public bool IsCover { get; set; }
+  [CanBeNull] 
+  public string Viscosity { get; set; }
   
   public int ProductId { get; set; }
   

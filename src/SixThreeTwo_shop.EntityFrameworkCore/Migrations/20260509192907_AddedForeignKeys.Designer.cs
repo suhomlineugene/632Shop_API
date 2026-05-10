@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SixThreeTwo_shop.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using SixThreeTwo_shop.EntityFrameworkCore;
 namespace SixThreeTwo_shop.Migrations
 {
     [DbContext(typeof(SixThreeTwo_shopDbContext))]
-    partial class SixThreeTwo_shopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260509192907_AddedForeignKeys")]
+    partial class AddedForeignKeys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1747,6 +1750,129 @@ namespace SixThreeTwo_shop.Migrations
                     b.ToTable("AbpTenants");
                 });
 
+            modelBuilder.Entity("SixThreeTwo_shop.OilSpecs.ApprovalStandard", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApprovalStandards");
+                });
+
+            modelBuilder.Entity("SixThreeTwo_shop.OilSpecs.ManufacturerApproval", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ManufacturerApprovals");
+                });
+
+            modelBuilder.Entity("SixThreeTwo_shop.OilSpecs.OilSpec", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ChangeInterval")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FuelType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("OilCapacity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("OilType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VehicleVariantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ViscosityGrade")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VehicleVariantId");
+
+                    b.ToTable("OilSpecs");
+                });
+
+            modelBuilder.Entity("SixThreeTwo_shop.OilSpecs.OilSpecApproval", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("OilSpecId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StandardId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OilSpecId");
+
+                    b.HasIndex("StandardId");
+
+                    b.ToTable("OilSpecApprovals");
+                });
+
+            modelBuilder.Entity("SixThreeTwo_shop.OilSpecs.OilSpecManufacturerApproval", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ManufacturerSpecId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OilSpecId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ManufacturerSpecId");
+
+                    b.HasIndex("OilSpecId");
+
+                    b.ToTable("OilSpecManufacturerApprovals");
+                });
+
             modelBuilder.Entity("SixThreeTwo_shop.Orders.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -1943,162 +2069,6 @@ namespace SixThreeTwo_shop.Migrations
                     b.ToTable("ReturnItems");
                 });
 
-            modelBuilder.Entity("SixThreeTwo_shop.Products.Additive", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AdditiveType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId")
-                        .IsUnique();
-
-                    b.ToTable("Additives");
-                });
-
-            modelBuilder.Entity("SixThreeTwo_shop.Products.Coolant", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Approval")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId")
-                        .IsUnique();
-
-                    b.ToTable("Coolants");
-                });
-
-            modelBuilder.Entity("SixThreeTwo_shop.Products.ManufacturerApproval", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ManufacturerName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ManufacturerApprovals");
-                });
-
-            modelBuilder.Entity("SixThreeTwo_shop.Products.MotorOil", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Viscosity")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId")
-                        .IsUnique();
-
-                    b.ToTable("MotorOils");
-                });
-
-            modelBuilder.Entity("SixThreeTwo_shop.Products.MotorOilManufacturerApproval", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ManufacturerApprovalId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MotorOilId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ManufacturerApprovalId");
-
-                    b.HasIndex("MotorOilId");
-
-                    b.ToTable("MotorOilManufacturerApprovals");
-                });
-
-            modelBuilder.Entity("SixThreeTwo_shop.Products.MotorOilToOilApproval", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("MotorOilId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OilApprovalId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MotorOilId");
-
-                    b.HasIndex("OilApprovalId");
-
-                    b.ToTable("MotorsOilToOilApprovals");
-                });
-
-            modelBuilder.Entity("SixThreeTwo_shop.Products.OilApproval", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StandardType")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OilApprovals");
-                });
-
             modelBuilder.Entity("SixThreeTwo_shop.Products.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -2107,51 +2077,75 @@ namespace SixThreeTwo_shop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Capacity")
+                    b.Property<string>("ApiStandard")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CountryOfOrigin")
+                    b.Property<string>("Brand")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("ContainerSize")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsAvailable")
+                    b.Property<bool>("IsPublished")
                         .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OilType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProductType")
+                    b.Property<string>("Sku")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StockQuality")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ViscosityGrade")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("SixThreeTwo_shop.Products.ProductCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductCategory");
                 });
 
             modelBuilder.Entity("SixThreeTwo_shop.Products.ProductImage", b =>
@@ -2162,13 +2156,16 @@ namespace SixThreeTwo_shop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AltText")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsCover")
                         .HasColumnType("bit");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Url")
+                    b.Property<string>("S3Key")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -2178,98 +2175,27 @@ namespace SixThreeTwo_shop.Migrations
                     b.ToTable("ProductImages");
                 });
 
-            modelBuilder.Entity("SixThreeTwo_shop.Products.TransmissionFluid", b =>
+            modelBuilder.Entity("SixThreeTwo_shop.Products.ProductToCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TransmissionType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Viscosity")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("CategoryId");
 
-                    b.ToTable("TransmissionFluids");
-                });
+                    b.HasIndex("ProductId");
 
-            modelBuilder.Entity("SixThreeTwo_shop.Products.TransmissionFluidManufacturerApproval", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ManufacturerApprovalId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TransmissionFluidId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ManufacturerApprovalId");
-
-                    b.HasIndex("TransmissionFluidId");
-
-                    b.ToTable("TransmissionFluidManufacturerApprovals");
-                });
-
-            modelBuilder.Entity("SixThreeTwo_shop.Products.VehicleSpecToManufacturerApproval", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ManufacturerApprovalId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VehicleSpecId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ManufacturerApprovalId");
-
-                    b.HasIndex("VehicleSpecId");
-
-                    b.ToTable("VehicleSpecToManufacturerApprovals");
-                });
-
-            modelBuilder.Entity("SixThreeTwo_shop.Products.VehicleSpecToOilApproval", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("OilApprovalId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VehicleSpecId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OilApprovalId");
-
-                    b.HasIndex("VehicleSpecId");
-
-                    b.ToTable("VehicleSpecToOilApprovals");
+                    b.ToTable("ProductsToCategories");
                 });
 
             modelBuilder.Entity("SixThreeTwo_shop.Reviews.Review", b =>
@@ -2674,6 +2600,55 @@ namespace SixThreeTwo_shop.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
+            modelBuilder.Entity("SixThreeTwo_shop.OilSpecs.OilSpec", b =>
+                {
+                    b.HasOne("SixThreeTwo_shop.Cars.VehicleVariant", "VehicleVariant")
+                        .WithMany()
+                        .HasForeignKey("VehicleVariantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("VehicleVariant");
+                });
+
+            modelBuilder.Entity("SixThreeTwo_shop.OilSpecs.OilSpecApproval", b =>
+                {
+                    b.HasOne("SixThreeTwo_shop.OilSpecs.OilSpec", "OilSpec")
+                        .WithMany()
+                        .HasForeignKey("OilSpecId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SixThreeTwo_shop.OilSpecs.ApprovalStandard", "Standard")
+                        .WithMany()
+                        .HasForeignKey("StandardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OilSpec");
+
+                    b.Navigation("Standard");
+                });
+
+            modelBuilder.Entity("SixThreeTwo_shop.OilSpecs.OilSpecManufacturerApproval", b =>
+                {
+                    b.HasOne("SixThreeTwo_shop.OilSpecs.ManufacturerApproval", "ManufacturerApproval")
+                        .WithMany()
+                        .HasForeignKey("ManufacturerSpecId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SixThreeTwo_shop.OilSpecs.OilSpec", "OilSpec")
+                        .WithMany()
+                        .HasForeignKey("OilSpecId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ManufacturerApproval");
+
+                    b.Navigation("OilSpec");
+                });
+
             modelBuilder.Entity("SixThreeTwo_shop.Orders.Order", b =>
                 {
                     b.HasOne("SixThreeTwo_shop.Orders.Promotion", "Promotion")
@@ -2742,75 +2717,15 @@ namespace SixThreeTwo_shop.Migrations
                     b.Navigation("Return");
                 });
 
-            modelBuilder.Entity("SixThreeTwo_shop.Products.Additive", b =>
+            modelBuilder.Entity("SixThreeTwo_shop.Products.Product", b =>
                 {
-                    b.HasOne("SixThreeTwo_shop.Products.Product", "Product")
-                        .WithOne("Additive")
-                        .HasForeignKey("SixThreeTwo_shop.Products.Additive", "ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("SixThreeTwo_shop.Products.Coolant", b =>
-                {
-                    b.HasOne("SixThreeTwo_shop.Products.Product", "Product")
-                        .WithOne("Coolant")
-                        .HasForeignKey("SixThreeTwo_shop.Products.Coolant", "ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("SixThreeTwo_shop.Products.MotorOil", b =>
-                {
-                    b.HasOne("SixThreeTwo_shop.Products.Product", "Product")
-                        .WithOne("MotorOil")
-                        .HasForeignKey("SixThreeTwo_shop.Products.MotorOil", "ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("SixThreeTwo_shop.Products.MotorOilManufacturerApproval", b =>
-                {
-                    b.HasOne("SixThreeTwo_shop.Products.ManufacturerApproval", "ManufacturerApproval")
+                    b.HasOne("SixThreeTwo_shop.Products.ProductCategory", "Category")
                         .WithMany()
-                        .HasForeignKey("ManufacturerApprovalId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SixThreeTwo_shop.Products.MotorOil", "MotorOil")
-                        .WithMany()
-                        .HasForeignKey("MotorOilId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ManufacturerApproval");
-
-                    b.Navigation("MotorOil");
-                });
-
-            modelBuilder.Entity("SixThreeTwo_shop.Products.MotorOilToOilApproval", b =>
-                {
-                    b.HasOne("SixThreeTwo_shop.Products.MotorOil", "MotorOil")
-                        .WithMany()
-                        .HasForeignKey("MotorOilId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SixThreeTwo_shop.Products.OilApproval", "OilApproval")
-                        .WithMany()
-                        .HasForeignKey("OilApprovalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MotorOil");
-
-                    b.Navigation("OilApproval");
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("SixThreeTwo_shop.Products.ProductImage", b =>
@@ -2824,72 +2739,23 @@ namespace SixThreeTwo_shop.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("SixThreeTwo_shop.Products.TransmissionFluid", b =>
+            modelBuilder.Entity("SixThreeTwo_shop.Products.ProductToCategory", b =>
                 {
+                    b.HasOne("SixThreeTwo_shop.Products.ProductCategory", "ProductCategory")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SixThreeTwo_shop.Products.Product", "Product")
-                        .WithOne("TransmissionFluid")
-                        .HasForeignKey("SixThreeTwo_shop.Products.TransmissionFluid", "ProductId")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Product");
-                });
 
-            modelBuilder.Entity("SixThreeTwo_shop.Products.TransmissionFluidManufacturerApproval", b =>
-                {
-                    b.HasOne("SixThreeTwo_shop.Products.ManufacturerApproval", "ManufacturerApproval")
-                        .WithMany()
-                        .HasForeignKey("ManufacturerApprovalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SixThreeTwo_shop.Products.TransmissionFluid", "TransmissionFluid")
-                        .WithMany()
-                        .HasForeignKey("TransmissionFluidId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ManufacturerApproval");
-
-                    b.Navigation("TransmissionFluid");
-                });
-
-            modelBuilder.Entity("SixThreeTwo_shop.Products.VehicleSpecToManufacturerApproval", b =>
-                {
-                    b.HasOne("SixThreeTwo_shop.Products.ManufacturerApproval", "ManufacturerApproval")
-                        .WithMany()
-                        .HasForeignKey("ManufacturerApprovalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SixThreeTwo_shop.Cars.VehicleVariant", "VehicleVariant")
-                        .WithMany()
-                        .HasForeignKey("VehicleSpecId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ManufacturerApproval");
-
-                    b.Navigation("VehicleVariant");
-                });
-
-            modelBuilder.Entity("SixThreeTwo_shop.Products.VehicleSpecToOilApproval", b =>
-                {
-                    b.HasOne("SixThreeTwo_shop.Products.OilApproval", "OilApproval")
-                        .WithMany()
-                        .HasForeignKey("OilApprovalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SixThreeTwo_shop.Cars.VehicleVariant", "VehicleSpec")
-                        .WithMany()
-                        .HasForeignKey("VehicleSpecId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("OilApproval");
-
-                    b.Navigation("VehicleSpec");
+                    b.Navigation("ProductCategory");
                 });
 
             modelBuilder.Entity("SixThreeTwo_shop.Reviews.Review", b =>
@@ -3029,17 +2895,6 @@ namespace SixThreeTwo_shop.Migrations
                     b.Navigation("Settings");
 
                     b.Navigation("Tokens");
-                });
-
-            modelBuilder.Entity("SixThreeTwo_shop.Products.Product", b =>
-                {
-                    b.Navigation("Additive");
-
-                    b.Navigation("Coolant");
-
-                    b.Navigation("MotorOil");
-
-                    b.Navigation("TransmissionFluid");
                 });
 #pragma warning restore 612, 618
         }

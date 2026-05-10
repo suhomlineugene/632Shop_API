@@ -13,6 +13,7 @@ public class SixThreeTwo_shopAuthorizationProvider : AuthorizationProvider
         context.CreatePermission(PermissionNames.Pages_Roles, L("Roles"));
         context.CreatePermission(PermissionNames.Pages_Tenants, L("Tenants"), multiTenancySides: MultiTenancySides.Host);
         context.CreatePermission(PermissionNames.Pages_Products, L("Products"));
+        context.CreatePermission(PermissionNames.Pages_OilSpecs, L("OilSpecs"));
     }
 
     private static ILocalizableString L(string name)
