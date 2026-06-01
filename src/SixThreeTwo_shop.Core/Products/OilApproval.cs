@@ -3,10 +3,12 @@ using Abp.Domain.Entities;
 
 namespace SixThreeTwo_shop.Products;
 
-[Table("ProductCategory")]
-public class ProductCategory: Entity
+[Table("OilApprovals")]
+public class OilApproval: Entity
 {
   public string Name { get; set; }
-
-  public bool IsActive { get; set; }
+  
+  public string Description { get; set; }
+  
+  public StandardType StandardType { get; set; }
 }

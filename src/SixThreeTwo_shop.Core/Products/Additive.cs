@@ -3,14 +3,12 @@ using Abp.Domain.Entities;
 
 namespace SixThreeTwo_shop.Products;
 
-[Table("ProductImages")]
-public class ProductImage: Entity
+[Table("Additives")]
+public class Additive: Entity
 {
-  public string Url { get; set; }
+  public string AdditiveType { get; set; }
   
-  public bool IsCover { get; set; }
-  
-  public int ProductId { get; set; }
+  public int  ProductId { get; set; }
   
   [ForeignKey("ProductId")]
   public Product Product { get; set; }

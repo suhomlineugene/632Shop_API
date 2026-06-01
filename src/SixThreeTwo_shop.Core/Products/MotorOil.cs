@@ -3,16 +3,13 @@ using Abp.Domain.Entities;
 
 namespace SixThreeTwo_shop.Products;
 
-[Table("ProductsToCategories")]
-public class ProductToCategory: Entity
+[Table("MotorOils")]
+public class MotorOil: Entity
 {
+  public string Viscosity { get; set; }
+  
   public int ProductId { get; set; }
-
-  public int CategoryId { get; set; }
-
+  
   [ForeignKey("ProductId")]
   public Product Product { get; set; }
-
-  [ForeignKey("CategoryId")]
-  public ProductCategory ProductCategory { get; set; }
 }
