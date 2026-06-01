@@ -11,6 +11,7 @@ using CsvHelper;
 using Microsoft.EntityFrameworkCore;
 using CsvHelper.Configuration;
 using ExcelDataReader;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SixThreeTwo_shop.Shared.Products;
 using SixThreeTwo_shop.Shared.Products.Dto;
@@ -79,7 +80,8 @@ public class ProductsAppService(
       .ToList();
   }
 
-  public async Task<int> ImportProductsFromFile(Stream fileStream, string fileName)
+  [HttpPost]
+  public async Task<int> ImportProductsFromFile(ImportProductsDto input)
   {
     var settings = configuration
       .GetSection(ProductImportSettings.SectionName)
@@ -87,7 +89,9 @@ public class ProductsAppService(
 
     var chunkSize = settings.ChunkSize > 0 ? settings.ChunkSize : ProductImportSettings.DefaultChunkSize;
 
-    var extension = Path.GetExtension(fileName).ToLowerInvariant();
+    var extension = Path.GetExtension(input.FileName).ToLowerInvariant();
+
+    using var fileStream = new MemoryStream(Convert.FromBase64String(input.FileBase64));
 
     var records = extension switch
     {

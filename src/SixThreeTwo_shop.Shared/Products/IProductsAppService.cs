@@ -13,7 +13,7 @@ public interface IProductsAppService : IApplicationService
   
   Task DeleteProduct(int id);
 
-  Task<int> ImportProductsFromFile(Stream fileStream, string fileName);
+  Task<int> ImportProductsFromFile(ImportProductsDto input);
 
   List<DropdownDto> GetProductTypeDropdown();
 }
