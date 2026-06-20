@@ -19,4 +19,7 @@
     <PackageReference Include="CsvHelper" Version="33.1.0" />
     <PackageReference Include="ExcelDataReader" Version="3.8.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Approvals\" />
+  </ItemGroup>
 </Project>
