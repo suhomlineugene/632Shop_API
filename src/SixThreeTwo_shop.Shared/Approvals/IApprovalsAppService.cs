@@ -18,4 +18,16 @@ public interface IApprovalsAppService: IApplicationService
   List<StandardTypeDropdownDto> GetStandardTypeDropdown();
   
   #endregion
+
+  #region ManufacturerApprovals
+
+  Task<List<ManufacturerApprovalDto>> GetAllManufacturerApprovals();
+
+  Task<ManufacturerApprovalDto> GetManufacturerApprovalById(int id);
+
+  Task<int> CreateOrEditManufacturerApproval(CreateEditManufacturerApprovalDto manufacturerApprovalDto);
+
+  Task DeleteManufacturerApproval(int id);
+
+  #endregion
 }

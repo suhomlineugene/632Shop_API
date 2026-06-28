@@ -15,6 +15,14 @@ public class ApprovalsMapProfile : Profile
         CreateMap<OilApproval, CreateEditOilApprovalDto>();
 
         CreateMap<CreateEditOilApprovalDto, OilApproval>();
+
+        CreateMap<ManufacturerApproval, ManufacturerApprovalDto>();
+
+        CreateMap<ManufacturerApprovalDto, ManufacturerApproval>();
+
+        CreateMap<ManufacturerApproval, CreateEditManufacturerApprovalDto>();
+
+        CreateMap<CreateEditManufacturerApprovalDto, ManufacturerApproval>();
     }
 }
 
