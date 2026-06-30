@@ -233,8 +233,10 @@ public class ProductsAppService(
       HeaderValidated = null,
       MissingFieldFound = null
     });
-
-    foreach (var record in csv.GetRecords<ProductDto>())
+    
+    var records  = csv.GetRecords<ProductDto>();
+    
+    foreach (var record in records)
       yield return record;
   }
 
