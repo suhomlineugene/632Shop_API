@@ -1,5 +1,8 @@
 ﻿using Abp.Application.Services.Dto;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using SixThreeTwo_shop.Products;
+using SixThreeTwo_shop.Shared.Common.Dto;
 
 namespace SixThreeTwo_shop.Shared.Products.Dto;
 
@@ -28,4 +31,8 @@ public class CreateEditProductDto : FullAuditedEntityDto
   public ProductType ProductType { get; set; }
   
   public TransmissionType TransmissionType { get; set; }
+  
+  public ProductFileDto? ProductCoverImage { get; set; }
+  
+  public ICollection<ProductFileDto>? ProductImages { get; set; }
 }

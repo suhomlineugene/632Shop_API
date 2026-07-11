@@ -38,6 +38,7 @@ public class ProductMapProfile : Profile
             .ForMember(x => x.LastModifierUserId, opt => opt.Ignore())
             .ForMember(x => x.IsDeleted, opt => opt.Ignore())
             .ForMember(x => x.DeletionTime, opt => opt.Ignore())
+            .ForMember(x => x.ProductImages, opt => opt.Ignore())
             .ForMember(x => x.DeleterUserId, opt => opt.Ignore());
     }
 }
