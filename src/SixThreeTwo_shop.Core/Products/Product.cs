@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
@@ -24,7 +25,12 @@ public class Product : FullAuditedEntity
 
   // Linked sub-entities (one-to-one per product type)
   public MotorOil? MotorOil { get; set; }
+  
   public Coolant? Coolant { get; set; }
+  
   public TransmissionFluid? TransmissionFluid { get; set; }
+  
   public Additive? Additive { get; set; }
+  
+  public ICollection<ProductImage> ProductImages { get; set; }
 }

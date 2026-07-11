@@ -13,6 +13,7 @@ using CsvHelper.Configuration;
 using ExcelDataReader;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using SixThreeTwo_shop.Shared.Common;
 using SixThreeTwo_shop.Shared.Products;
 using SixThreeTwo_shop.Shared.Products.Dto;
 
@@ -24,6 +25,8 @@ public class ProductsAppService(
   IRepository<Coolant> coolantRepository,
   IRepository<TransmissionFluid> transmissionFluidRepository,
   IRepository<Additive> additiveRepository,
+  IRepository<ProductImage> productImageRepository,
+  IS3Uploader s3Uploader,
   IConfiguration configuration)
   : SixThreeTwo_shopAppServiceBase, IProductsAppService
 {
@@ -56,6 +59,7 @@ public class ProductsAppService(
       var product = ObjectMapper.Map<Product>(productDto);
       var id = await productRepository.InsertAndGetIdAsync(product);
       await HandleLinkedEntityAsync(id, productDto);
+      await HandleProductImagesAsync(id, productDto, isEdit: false);
       return id;
     }
     else
@@ -64,12 +68,14 @@ public class ProductsAppService(
       ObjectMapper.Map(productDto, product);
       await productRepository.UpdateAsync(product);
       await HandleLinkedEntityAsync(product.Id, productDto);
+      await HandleProductImagesAsync(product.Id, productDto, isEdit: true);
       return product.Id;
     }
   }
 
   public async Task DeleteProduct(int id)
   {
+    await HandleProductImagesAsync(id, new CreateEditProductDto(), isDelete: true);
     await productRepository.DeleteAsync(id);
   }
 
@@ -120,6 +126,70 @@ public class ProductsAppService(
     total += chunk.Count;
 
     return total;
+  }
+
+  private async Task HandleProductImagesAsync(int productId, CreateEditProductDto dto, bool isEdit = false, bool isDelete = false)
+  {
+    var existingImages = await productImageRepository.GetAllListAsync(x => x.ProductId == productId);
+
+    // Delete all images from S3 and DB (used on product deletion or full replacement)
+    if (isDelete)
+    {
+      foreach (var img in existingImages)
+      {
+        await s3Uploader.DeleteFileAsync(img.Url);
+        await productImageRepository.DeleteAsync(img);
+      }
+      return;
+    }
+
+    if (dto == null) return;
+
+    // Handle cover image
+    var oldCover = existingImages.FirstOrDefault(x => x.IsCover);
+    if (dto.ProductCoverImage != null)
+    {
+      if (isEdit && oldCover != null)
+      {
+        await s3Uploader.DeleteFileAsync(oldCover.Url);
+        oldCover.Url = await s3Uploader.UploadFileAsync(dto.ProductCoverImage);
+        await productImageRepository.UpdateAsync(oldCover);
+      }
+      else
+      {
+        var coverKey = await s3Uploader.UploadFileAsync(dto.ProductCoverImage);
+        await productImageRepository.InsertAsync(new ProductImage
+        {
+          ProductId = productId,
+          Url = coverKey,
+          IsCover = true
+        });
+      }
+    }
+
+    // Handle gallery images
+    if (dto.ProductImages is { Count: > 0 })
+    {
+      if (isEdit)
+      {
+        foreach (var old in existingImages.Where(x => !x.IsCover))
+        {
+          await s3Uploader.DeleteFileAsync(old.Url);
+          await productImageRepository.DeleteAsync(old);
+        }
+      }
+
+      foreach (var file in dto.ProductImages)
+      {
+        var key = await s3Uploader.UploadFileAsync(file);
+        await productImageRepository.InsertAsync(new ProductImage
+        {
+          ProductId = productId,
+          Url = key,
+          IsCover = false
+        });
+      }
+    }
   }
 
   private async Task HandleLinkedEntityAsync(int productId, CreateEditProductDto dto)
