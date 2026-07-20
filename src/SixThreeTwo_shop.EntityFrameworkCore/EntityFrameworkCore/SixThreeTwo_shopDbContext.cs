@@ -33,6 +33,7 @@ public class SixThreeTwo_shopDbContext(DbContextOptions<SixThreeTwo_shopDbContex
   public DbSet<TransmissionFluidManufacturerApproval> TransmissionFluidManufacturerApprovals { get; set; }
   public DbSet<VehicleSpecToOilApproval> VehicleSpecToOilApprovals { get; set; }
   public DbSet<VehicleSpecToManufacturerApproval> VehicleSpecToManufacturerApprovals { get; set; }
+  public DbSet<Brand> Brands { get; set; }
 
   // ── Orders ─────────────────────────────────────────────────
   public DbSet<Order> Orders { get; set; }

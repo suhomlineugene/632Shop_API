@@ -20,6 +20,8 @@ public class CreateEditProductDto : FullAuditedEntityDto
 
   public string CountryOfOrigin { get; set; }
   
+  public int BrandId { get; set; }
+  
   public string? Viscosity { get; set; }
   
   public string? CoolantApproval { get; set; }

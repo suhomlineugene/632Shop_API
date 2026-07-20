@@ -24,6 +24,12 @@ public class Product : FullAuditedEntity
   public ProductType ProductType { get; set; }
 
   // Linked sub-entities (one-to-one per product type)
+  
+  public int BrandId { get; set; }
+  
+  [ForeignKey("BrandId")]
+  public Brand Brand { get; set; }
+  
   public MotorOil? MotorOil { get; set; }
   
   public Coolant? Coolant { get; set; }
