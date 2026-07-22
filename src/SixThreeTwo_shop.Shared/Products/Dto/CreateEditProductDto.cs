@@ -29,6 +29,8 @@ public class CreateEditProductDto : FullAuditedEntityDto
   public string? TransmissionViscosity { get; set; }
   
   public string? AdditiveType { get; set; }
+  
+  public int StockQuantity { get; set; }
 
   public ProductType ProductType { get; set; }
   

@@ -128,7 +128,8 @@ public class ProductsAppService(
     return total;
   }
 
-  private async Task HandleProductImagesAsync(int productId, CreateEditProductDto dto, bool isEdit = false, bool isDelete = false)
+  private async Task HandleProductImagesAsync(int productId, CreateEditProductDto dto, bool isEdit = false,
+    bool isDelete = false)
   {
     var existingImages = await productImageRepository.GetAllListAsync(x => x.ProductId == productId);
 
@@ -140,6 +141,7 @@ public class ProductsAppService(
         await s3Uploader.DeleteFileAsync(img.Url);
         await productImageRepository.DeleteAsync(img);
       }
+
       return;
     }
 
@@ -201,10 +203,12 @@ public class ProductsAppService(
       case ProductType.MotorOil:
         var motorOil = await motorOilRepository.FirstOrDefaultAsync(x => x.ProductId == productId);
         if (motorOil == null)
-          await motorOilRepository.InsertAsync(new MotorOil { ProductId = productId, Viscosity = dto.Viscosity });
+          await motorOilRepository.InsertAsync(new MotorOil
+            { ProductId = productId, Viscosity = dto.Viscosity, StockQuantity = dto.StockQuantity });
         else
         {
           motorOil.Viscosity = dto.Viscosity;
+          motorOil.StockQuantity = dto.StockQuantity;
           await motorOilRepository.UpdateAsync(motorOil);
         }
 
@@ -213,10 +217,11 @@ public class ProductsAppService(
       case ProductType.Coolant:
         var coolant = await coolantRepository.FirstOrDefaultAsync(x => x.ProductId == productId);
         if (coolant == null)
-          await coolantRepository.InsertAsync(new Coolant { ProductId = productId, Approval = dto.CoolantApproval });
+          await coolantRepository.InsertAsync(new Coolant { ProductId = productId, Approval = dto.CoolantApproval, StockQuantity = dto.StockQuantity });
         else
         {
           coolant.Approval = dto.CoolantApproval;
+          coolant.StockQuantity = dto.StockQuantity;
           await coolantRepository.UpdateAsync(coolant);
         }
 
@@ -230,12 +235,14 @@ public class ProductsAppService(
           {
             ProductId = productId,
             Viscosity = viscosity,
-            TransmissionType = dto.TransmissionType
+            TransmissionType = dto.TransmissionType,
+            StockQuantity = dto.StockQuantity
           });
         else
         {
           fluid.Viscosity = viscosity;
           fluid.TransmissionType = dto.TransmissionType;
+          fluid.StockQuantity = dto.StockQuantity;
           await transmissionFluidRepository.UpdateAsync(fluid);
         }
 
@@ -244,10 +251,11 @@ public class ProductsAppService(
       case ProductType.Additive:
         var additive = await additiveRepository.FirstOrDefaultAsync(x => x.ProductId == productId);
         if (additive == null)
-          await additiveRepository.InsertAsync(new Additive { ProductId = productId, AdditiveType = dto.AdditiveType });
+          await additiveRepository.InsertAsync(new Additive { ProductId = productId, AdditiveType = dto.AdditiveType, StockQuantity = dto.StockQuantity });
         else
         {
           additive.AdditiveType = dto.AdditiveType;
+          additive.StockQuantity = dto.StockQuantity;
           await additiveRepository.UpdateAsync(additive);
         }
 
@@ -303,9 +311,9 @@ public class ProductsAppService(
       HeaderValidated = null,
       MissingFieldFound = null
     });
-    
-    var records  = csv.GetRecords<ProductDto>();
-    
+
+    var records = csv.GetRecords<ProductDto>();
+
     foreach (var record in records)
       yield return record;
   }

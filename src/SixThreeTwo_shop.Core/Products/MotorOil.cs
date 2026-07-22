@@ -8,6 +8,8 @@ public class MotorOil: Entity
 {
   public string Viscosity { get; set; }
   
+  public int StockQuantity { get; set; }
+  
   public int ProductId { get; set; }
   
   [ForeignKey("ProductId")]
