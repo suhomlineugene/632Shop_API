@@ -17,6 +17,8 @@ public class ProductDto : FullAuditedEntityDto
   
   public string CountryOfOrigin { get; set; }
   
+  public int StockQuantity { get; set; }
+  
   public ProductType ProductType { get; set; }
   
   public string? Viscosity { get; set; }
