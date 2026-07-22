@@ -8,6 +8,8 @@ public class Additive: Entity
 {
   public string AdditiveType { get; set; }
   
+  public int StockQuantity { get; set; }
+  
   public int  ProductId { get; set; }
   
   [ForeignKey("ProductId")]
