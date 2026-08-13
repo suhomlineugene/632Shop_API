@@ -45,7 +45,7 @@ public class S3Uploader : DomainService, IS3Uploader
     }
   }
 
-  public async Task<string> UploadFileAsync(ProductFileDto file)
+  public async Task<string> UploadFileAsync(ProductFileDto file, string bucketFolder = null)
   {
     if (file == null)
     {
@@ -57,8 +57,9 @@ public class S3Uploader : DomainService, IS3Uploader
       throw new UserFriendlyException("The file content is empty.");
     }
 
+    var folder = string.IsNullOrWhiteSpace(bucketFolder) ? _fileUploadFolder : bucketFolder;
     var extension = Path.GetExtension(file.FileName);
-    var key = $"{_fileUploadFolder}/{Guid.NewGuid()}{extension}";
+    var key = $"{folder}/{Guid.NewGuid()}{extension}";
     var contentType = GetContentType(extension);
 
     byte[] bytes;
