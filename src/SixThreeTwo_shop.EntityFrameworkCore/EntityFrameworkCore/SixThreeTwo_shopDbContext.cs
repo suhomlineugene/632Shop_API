@@ -6,6 +6,7 @@ using SixThreeTwo_shop.Products;
 using SixThreeTwo_shop.Users;
 using Microsoft.EntityFrameworkCore;
 using SixThreeTwo_shop.Cars;
+using SixThreeTwo_shop.HomePage;
 using SixThreeTwo_shop.Orders;
 using SixThreeTwo_shop.Reviews;
 using SixThreeTwo_shop.Wishlists;
@@ -18,6 +19,9 @@ public class SixThreeTwo_shopDbContext(DbContextOptions<SixThreeTwo_shopDbContex
   // ── Users ──────────────────────────────────────────────────
   public DbSet<UserAddress> UserAddresses { get; set; }
   public DbSet<SavedVehicle> SavedVehicles { get; set; }
+  
+  // ── Home page ──────────────────────────────────────────────────
+  public DbSet<MainBanner> MainBanners { get; set; }
 
   // ── Products ───────────────────────────────────────────────
   public DbSet<Product> Products { get; set; }

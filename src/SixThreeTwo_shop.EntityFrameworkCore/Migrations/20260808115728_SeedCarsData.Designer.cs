@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SixThreeTwo_shop.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using SixThreeTwo_shop.EntityFrameworkCore;
 namespace SixThreeTwo_shop.Migrations
 {
     [DbContext(typeof(SixThreeTwo_shopDbContext))]
-    partial class SixThreeTwo_shopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260808115728_SeedCarsData")]
+    partial class SeedCarsData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1678,37 +1681,6 @@ namespace SixThreeTwo_shop.Migrations
                     b.HasIndex("ModelId");
 
                     b.ToTable("VehicleVariants");
-                });
-
-            modelBuilder.Entity("SixThreeTwo_shop.HomePage.MainBanner", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("BadgeText")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("IsBadgeVisible")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MainBanners");
                 });
 
             modelBuilder.Entity("SixThreeTwo_shop.MultiTenancy.Tenant", b =>

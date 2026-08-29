@@ -13,4 +13,6 @@ public class AwsS3Settings
   public string SecretAccessKey { get; set; } = string.Empty;
 
   public string FileUploadFolder { get; set; } = "uploads";
+  
+  public string ImagesBaseUrl { get; set; } = string.Empty;
 }

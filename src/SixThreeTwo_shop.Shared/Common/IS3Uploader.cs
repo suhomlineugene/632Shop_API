@@ -7,7 +7,7 @@ namespace SixThreeTwo_shop.Shared.Common;
 
 public interface IS3Uploader : IDomainService
 {
-  Task<string> UploadFileAsync(ProductFileDto file);
+  Task<string> UploadFileAsync(ProductFileDto file, string bucketFolder = null);
   
   Task DeleteFileAsync(string key);
 }
