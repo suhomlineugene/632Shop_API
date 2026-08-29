@@ -1,21 +1,44 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Domain.Repositories;
+using Microsoft.Extensions.Configuration;
+using SixThreeTwo_shop.Common;
 using SixThreeTwo_shop.Shared.Common;
 using SixThreeTwo_shop.Shared.HomePage;
 using SixThreeTwo_shop.Shared.HomePage.Dto;
 
 namespace SixThreeTwo_shop.HomePage;
 
-public class HomePageAppService(IRepository<MainBanner> mainBannerRepository, IS3Uploader s3Uploader)
+public class HomePageAppService(
+  IRepository<MainBanner> mainBannerRepository,
+  IS3Uploader s3Uploader,
+  IConfiguration configuration)
   : ApplicationService, IHomePageAppService
 {
   private const string BannerImagesFolder = "banner-images";
+  private readonly string _imagesBaseUrl = configuration
+    .GetSection(AwsS3Settings.SectionName)
+    .Get<AwsS3Settings>()?.ImagesBaseUrl ?? string.Empty;
 
+  public async Task<List<MainBannerDto>> GetAllMainBannersAsync()
+  {
+    var mainBanners = await mainBannerRepository.GetAllListAsync();
+    var result = ObjectMapper.Map<List<MainBannerDto>>(mainBanners);
+
+    foreach (var banner in result)
+    {
+      banner.ToPublicImageUrl(_imagesBaseUrl);
+    }
+
+    return result;
+  }
+  
   public async Task<MainBannerDto> GetMainBannerAsync()
   {
     var mainBanner = await mainBannerRepository.FirstOrDefaultAsync(x => x.IsActive);
-    return ObjectMapper.Map<MainBannerDto>(mainBanner);
+    var result = ObjectMapper.Map<MainBannerDto>(mainBanner);
+    return result.ToPublicImageUrl(_imagesBaseUrl);
   }
 
   public async Task<MainBannerDto> CreateEditMainBannerAsync(CreateEditMainBanner input)
@@ -52,7 +75,7 @@ public class HomePageAppService(IRepository<MainBanner> mainBannerRepository, IS
       await mainBannerRepository.UpdateAsync(mainBanner);
     }
 
-    return ObjectMapper.Map<MainBannerDto>(mainBanner);
+    return ObjectMapper.Map<MainBannerDto>(mainBanner).ToPublicImageUrl(_imagesBaseUrl);
   }
 
   public async Task DeleteMainBannerAsync(MainBannerDto input)
