@@ -9,9 +9,9 @@ public class ProductMapProfile : Profile
     public ProductMapProfile()
     {
         CreateMap<Product, ProductDto>()
-            .ForMember(x => x.Viscosity, opt => opt.MapFrom(p => p.MotorOil != null ? p.MotorOil.OilViscosity.Name : null))
+            .ForMember(x => x.ViscosityId, opt => opt.MapFrom(p => p.MotorOil != null ? p.MotorOil.ViscosityId : (int?)null))
             .ForMember(x => x.CoolantApproval, opt => opt.MapFrom(p => p.Coolant != null ? p.Coolant.Approval : null))
-            .ForMember(x => x.TransmissionViscosity, opt => opt.MapFrom(p => p.TransmissionFluid != null ? p.TransmissionFluid.Viscosity.Name : null))
+            .ForMember(x => x.TransmissionViscosityId, opt => opt.MapFrom(p => p.TransmissionFluid != null ? p.TransmissionFluid.ViscosityId : (int?)null))
             .ForMember(x => x.AdditiveType, opt => opt.MapFrom(p => p.Additive != null ? p.Additive.AdditiveType : null))
             .ForMember(x => x.TransmissionType, opt => opt.MapFrom(p => p.TransmissionFluid != null ? p.TransmissionFluid.TransmissionType : default))
             .ForMember(x => x.StockQuantity, opt => opt.MapFrom(p =>
@@ -33,7 +33,7 @@ public class ProductMapProfile : Profile
             .ForMember(x => x.BrandId, opt => opt.MapFrom(p => p.BrandId))
             .ForMember(x => x.ViscosityId, opt => opt.MapFrom(p => p.MotorOil != null ? p.MotorOil.ViscosityId : (int?)null))
             .ForMember(x => x.CoolantApproval, opt => opt.MapFrom(p => p.Coolant != null ? p.Coolant.Approval : null))
-            .ForMember(x => x.TransmissionViscosityId, opt => opt.MapFrom(p => p.TransmissionFluid != null ? p.TransmissionFluid.ViscosityId : null))
+            .ForMember(x => x.TransmissionViscosityId, opt => opt.MapFrom(p => p.TransmissionFluid != null ? p.TransmissionFluid.ViscosityId : (int?)null))
             .ForMember(x => x.AdditiveType, opt => opt.MapFrom(p => p.Additive != null ? p.Additive.AdditiveType : null))
             .ForMember(x => x.TransmissionType, opt => opt.MapFrom(p => p.TransmissionFluid != null ? p.TransmissionFluid.TransmissionType : default))
             .ForMember(x => x.StockQuantity, opt => opt.MapFrom(p =>
