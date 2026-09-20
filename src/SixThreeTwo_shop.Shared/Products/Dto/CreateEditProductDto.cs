@@ -22,11 +22,11 @@ public class CreateEditProductDto : FullAuditedEntityDto
   
   public int BrandId { get; set; }
   
-  public string? Viscosity { get; set; }
+  public int? ViscosityId { get; set; }
   
   public string? CoolantApproval { get; set; }
   
-  public string? TransmissionViscosity { get; set; }
+  public int? TransmissionViscosityId { get; set; }
   
   public string? AdditiveType { get; set; }
   
