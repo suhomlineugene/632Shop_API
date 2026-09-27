@@ -9,8 +9,7 @@ public class TransmissionFluid: Entity
 {
   public TransmissionType TransmissionType { get; set; }
   
-  [CanBeNull] 
-  public string Viscosity { get; set; }
+  public int? ViscosityId { get; set; }
   
   public int StockQuantity { get; set; }
   
@@ -18,4 +17,7 @@ public class TransmissionFluid: Entity
   
   [ForeignKey("ProductId")]
   public Product Product { get; set; }
+  
+  [ForeignKey("ViscosityId")]
+  public TransmissionOilViscosity Viscosity { get; set; }
 }

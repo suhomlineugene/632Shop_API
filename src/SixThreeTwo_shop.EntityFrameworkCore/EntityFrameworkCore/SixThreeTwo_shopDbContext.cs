@@ -28,6 +28,8 @@ public class SixThreeTwo_shopDbContext(DbContextOptions<SixThreeTwo_shopDbContex
   public DbSet<ProductImage> ProductImages { get; set; }
   public DbSet<MotorOil> MotorOils { get; set; }
   public DbSet<TransmissionFluid> TransmissionFluids { get; set; }
+  public DbSet<EngineOilViscosity> EngineOilViscosities { get; set; }
+  public DbSet<TransmissionOilViscosity> TransmissionOilViscosities { get; set; }
   public DbSet<Coolant> Coolants { get; set; }
   public DbSet<Additive> Additives { get; set; }
   public DbSet<OilApproval> OilApprovals { get; set; }

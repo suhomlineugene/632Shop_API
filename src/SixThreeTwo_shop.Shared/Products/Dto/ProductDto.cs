@@ -13,6 +13,8 @@ public class ProductDto : FullAuditedEntityDto
   
   public bool IsAvailable { get; set; }
   
+  public int BrandId { get; set; }
+  
   public string Capacity { get; set; }
   
   public string CountryOfOrigin { get; set; }
@@ -21,7 +23,9 @@ public class ProductDto : FullAuditedEntityDto
   
   public ProductType ProductType { get; set; }
   
-  public string? Viscosity { get; set; }
+  public int? ViscosityId { get; set; }
+  
+  public int? TransmissionViscosityId { get; set; }
   
   public string? CoolantApproval { get; set; }
   

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SixThreeTwo_shop.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using SixThreeTwo_shop.EntityFrameworkCore;
 namespace SixThreeTwo_shop.Migrations
 {
     [DbContext(typeof(SixThreeTwo_shopDbContext))]
-    partial class SixThreeTwo_shopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260830080447_AddedViscositiesTable")]
+    partial class AddedViscositiesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2320,7 +2323,7 @@ namespace SixThreeTwo_shop.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TransmissionOilViscosities");
+                    b.ToTable("TransmissionOilViscosity");
                 });
 
             modelBuilder.Entity("SixThreeTwo_shop.Products.VehicleSpecToManufacturerApproval", b =>
