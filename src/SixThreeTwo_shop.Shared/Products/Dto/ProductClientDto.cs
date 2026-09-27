@@ -15,4 +15,8 @@ public class ProductClientDto: FullAuditedEntityDto
     public string Capacity { get; set; }
   
     public string CountryOfOrigin { get; set; }
+    
+    public string CoverImageUrl { get; set; }
+    
+    
 }
